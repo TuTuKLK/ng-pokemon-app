@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class LoginComponent implements OnInit {
-  message: string = 'Vous êtes déconnecté.';
+  message: string = 'Vous êtes déconnecté. Identifiant: (pikachu/pikachu)';
   name:string;
   password:string;
   auth: AuthService
