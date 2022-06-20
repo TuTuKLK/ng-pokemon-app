@@ -6,9 +6,7 @@ import { catchError, Observable, of, tap } from 'rxjs';
 @Injectable()
 export class PokemonService {
   private url = 'api/pokemons/'
-  constructor( private http: HttpClient) {
-
-  }
+  constructor( private http: HttpClient) {}
 
   getPokemonList(): Observable<Pokemon[]> {
     return this.http.get<Pokemon[]>(this.url).pipe(
@@ -24,6 +22,17 @@ export class PokemonService {
     return this.http.get<Pokemon>(`${this.url}${pokemonId}`).pipe(
       tap((response) =>this.log(response)),
       catchError((error) => this.handleError(error, undefined))
+    );
+  }
+
+  searchPokemonList(term: string):Observable<Pokemon[]> {
+    if(term.length <=1) {
+      return of([]);
+    }
+
+    return this.http.get<Pokemon[]>(`${this.url}?name=${term}`).pipe(
+      tap((response) =>this.log(response)),
+      catchError((error) => this.handleError(error, []))
     );
   }
 
